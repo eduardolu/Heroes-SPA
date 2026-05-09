@@ -1,3 +1,3 @@
-import { Navbar } from './components/Navbar.jsx'
+import { Navbar } from './Components/Navbar.jsx'
 
 export { Navbar }
