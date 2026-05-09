@@ -1,10 +1,10 @@
-import React from 'react'
-import { AppRouter } from './router/APPRouter'
+import { UserProvider } from './context/UserContext'
+import { AppRouter } from './router/AppRouter'
 
 export const HeroesAPP = () => {
   return (
-    <>  
-        <AppRouter />
-    </>
+    <UserProvider>
+      <AppRouter />
+    </UserProvider>
   )
 }

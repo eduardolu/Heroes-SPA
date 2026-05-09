@@ -1,1 +1,3 @@
-export * from './Components'
+import { Navbar } from './components/Navbar.jsx'
+
+export { Navbar }

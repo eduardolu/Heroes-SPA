@@ -1,76 +1,64 @@
 import queryString from 'query-string'
 import { HeroeCard } from '../components/HeroeCard'
-import {useFrom} from '../../Hooks/useFrom'
+import { useFrom } from '../../Hooks/useFrom'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getHeroesByName } from '../helpers/getHeroesByName'
 
 export const SearchPage = () => {
-
   const navigate = useNavigate();
-  const logation =useLocation();
+  const location = useLocation();
 
-  const {q = ''} = queryString.parse(logation.search);
-  const heroe = getHeroesByName(q)
+  const { q = '' } = queryString.parse(location.search);
+  const heroe = getHeroesByName(q);
   
-  const {searchText, onInputChange,onResertFrom } = useFrom({
-    searchText: q
-  });
+  const { searchText, onInputChange, onResetForm } = useFrom({ searchText: q });
 
-  const onSearchSubmit = (event) =>{
+  const onSearchSubmit = (event) => {
     event.preventDefault();
-    // if (searchText.trim().length <= 1) return; 
-    navigate(`?q=${searchText.toLowerCase().trim()}`)
-    // console.log(searchText);
-    onResertFrom()
+    navigate(`?q=${searchText.toLowerCase().trim()}`);
+    onResetForm();
   }
 
-
   return (
-    <>
-      <h1>Search</h1>
-      <hr />
+    <div className="container">
+      <h1 className="page-title">SEARCH</h1>
       <div className="row">
-
-        <div className="col-5">
-          <h4>Searching</h4>
-          <hr />
-          <form onSubmit={onSearchSubmit}>
-            <input type="text"
-              placeholder='Search a here'
-              className='form-control'
-              name='searchText'
-              autoComplete='off'
-              value={searchText}
-              onChange={onInputChange}
-            />
-            <button className='btn btn-outline-primary mt-1'>Search</button>
-          </form>
+        <div className="col-md-5">
+          <div className="search-container">
+            <form onSubmit={onSearchSubmit}>
+              <input
+                type="text"
+                placeholder="Search a hero..."
+                className="form-control search-input mb-3"
+                name="searchText"
+                autoComplete="off"
+                value={searchText}
+                onChange={onInputChange}
+              />
+              <button type="submit" className="search-btn w-100">
+                Search
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="col-7">
-          <h4>Result</h4>
-          <hr />
-          
-          {
-            (q === '') ?
-              <div className='alert alert-primary'>
-                Search here
-              </div>
-              :(heroe.length === 0) &&
-              <div className='alert alert-danger'>
-                No heroe with <b>{q}</b>
-              </div>   
-              }
-              {
-              <div className='row rows-cols-1 g-3'>
-                {
-                heroe.map( hero => (
-                  <HeroeCard key={ hero.id } {...hero}/>
-                ))
-                }
-              </div>
-            } 
+        <div className="col-md-7">
+          {q === '' ? (
+            <div className="alert">
+              <p className="alert-title">Search your hero</p>
+            </div>
+          ) : heroe.length === 0 ? (
+            <div className="alert">
+              <p className="alert-title">No hero found with "{q}"</p>
+            </div>
+          ) : (
+            <div className="row rows-cols-1 g-3">
+              {heroe.map(hero => (
+                <HeroeCard key={hero.id} {...hero} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   )
 }
