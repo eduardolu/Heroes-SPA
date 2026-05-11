@@ -125,6 +125,12 @@ body {
 .navbar-toggler {
   border: 2px solid var(--gold);
   padding: 0.5rem;
+  order: 2;
+  margin-left: auto;
+}
+
+.navbar-collapse {
+  order: 3;
 }
 
 .navbar-toggler-icon {
@@ -369,6 +375,8 @@ body {
   height: 200%;
   background: conic-gradient(from 0deg, transparent, rgba(255, 215, 0, 0.1), transparent 30%);
   animation: rotate 4s linear infinite;
+  pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes rotate {
@@ -384,6 +392,8 @@ body {
   font-size: 1rem;
   border-radius: 10px;
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .search-input:focus {
@@ -529,5 +539,61 @@ body {
   
   .card-img {
     height: 200px;
+  }
+
+  .navbar {
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .navbar-collapse {
+    width: 100%;
+    order: 3;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    width: 100%;
+    padding-top: 0.5rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0 !important;
+  }
+
+  .navbar-collapse.collapse.w-100.order-3 {
+    order: 2;
+    width: auto;
+    justify-content: flex-start !important;
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  .navbar-collapse.collapse.w-100.order-3 .navbar-nav {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .user-badge, .logout-btn {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .search-container {
+    padding: 1rem;
+    overflow: visible;
+  }
+
+  .search-container::before {
+    display: none;
+  }
+
+  .search-input {
+    position: relative;
+    z-index: 1;
   }
 }

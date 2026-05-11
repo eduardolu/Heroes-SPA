@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const { user, logout } = useUser();
+  const [isOpen, setIsOpen] = useState(false);
 
   const onLogout = () => {
     logout();
@@ -16,7 +18,15 @@ export const Navbar = () => {
         HEROES
       </Link>
 
-      <div className="navbar-collapse">
+      <button
+        className="navbar-toggler"
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      <div className={`navbar-collapse ${isOpen ? 'show' : ''}`}>
         <div className="navbar-nav">
           <NavLink className="nav-item nav-link" to="/marvel">
             Marvel
@@ -30,7 +40,7 @@ export const Navbar = () => {
         </div>
       </div>
 
-      <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
+      <div className={`navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end ${isOpen ? 'show' : ''}`}>
         <ul className="navbar-nav ml-auto">
           {user && (
             <span className="nav-item nav-link user-badge">
